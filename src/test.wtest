@@ -1,0 +1,20 @@
+import vagones.*
+import locomotoras.*
+import formacion.*
+
+
+test "vagon liviano" {
+
+	var vagon = new Vagon()
+	vagon.largoTotal(2)
+	vagon.largoUtil(1)	
+	assert.equals(true, vagon.esLiviano())
+
+}
+
+test " test eficiencia " 
+
+{
+	var locomotora = new Locomotora()
+	var formacion = new Formacion()
+}
