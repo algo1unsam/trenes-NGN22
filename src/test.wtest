@@ -5,7 +5,7 @@ import formacion.*
 
 test "vagon liviano" {
 
-	var vagon = new Vagon()
+	var vagon = new VagonPersonas()
 	vagon.largoTotal(2)
 	vagon.largoUtil(1)	
 	assert.equals(true, vagon.esLiviano())
@@ -15,6 +15,8 @@ test "vagon liviano" {
 test " test eficiencia " 
 
 {
-	var locomotora = new Locomotora()
+	var locomotora = new Locomotora( peso = 1 , pesoMaximo = 6 , velocidadMaxima = 15 )
 	var formacion = new Formacion()
+	formacion.agregarLocomotoras(locomotora)
+	assert.equals(true, formacion.esEficiente())
 }
