@@ -1,22 +1,104 @@
 import vagones.*
 import locomotoras.*
 import formacion.*
+import deposito.*
+
+describe " " 
+{ 
+	
+	const locomotora = new Locomotora(peso = 1 , pesoMaximoArrastre = 6 ,velocidadMaxima = 10)
+	const locomotoraDos = new Locomotora(peso = 2 , pesoMaximoArrastre = 6 ,velocidadMaxima = 10)
+	const vagon = new VagonPersonas(largoTotal = 2,largoUtil = 1)//peso 1280
+	const vagonCarga = new VagonCarga(pesoDeCarga = 2)
+	const formacion = new Formacion()
+	const deposito = new Deposito()
+	
+	
+	test " no agregar locomotora dentro del deposito"
+	{
+		formacion.agregarLocomotoras(locomotora)
+		deposito.agregarFormacion(formacion)
+		deposito.agregarLocomotoraALaFormacion(formacion)
+		deposito.agregarLocomotoras(locomotoraDos)
+		
+		assert.equals(true,deposito.locomotoras().contains(locomotoraDos)  )
+	}
+	
+	
+	
+	
+	
+	test " deposito complejo si necesita conductor "
+	{
+		vagonCarga.pesoDeCarga(10000)
+		formacion.agregarVagones(vagon)//peso 1280
+		formacion.agregarVagones(vagonCarga)//peso 2 + 160 = 162
+		deposito.agregarFormacion(formacion)
+		assert.that( deposito.conductorExperimentado() )
+	}
+	
+	
+	
+	test " deposito complejo no necesita conductor "
+	{
+		formacion.agregarVagones(vagon)//peso 1280
+		formacion.agregarVagones(vagonCarga)//peso 2 + 160 = 162
+		deposito.agregarFormacion(formacion)
+		assert.notThat( deposito.conductorExperimentado() )
+	}
+	
+	
+	
+	test " vagones mas pesados "
+	{
+		formacion.agregarVagones(vagon)//peso 1280
+		formacion.agregarVagones(vagonCarga)//peso 2 + 160 = 162
+		deposito.agregarFormacion(formacion)
+		assert.equals( [vagon] , deposito.listaVagonesMasPesados() )
+	}
+	
+	
+	test "empuje faltante"
+	{
+		formacion.agregarVagones(vagon)//peso 1280
+		formacion.agregarVagones(vagonCarga)//peso 2 + 160 = 162
+		formacion.agregarLocomotoras(locomotora)//arrastre util 5
+		formacion.agregarLocomotoras(locomotoraDos)//arrastre util 4
+		assert.equals( 1433 , formacion.empujeFaltante())
+	
+		
+	}
+
+	test "peso total de los vagones en una formacion"
+	{
+		
+		formacion.agregarVagones(vagon)
+		formacion.agregarVagones(vagonCarga)//peso 2 + 160 = 162
+		assert.equals( 1442, formacion.pesoTotalVagones())
+	
+	}
 
 
-test "vagon liviano" {
-
-	var vagon = new VagonPersonas()
-	vagon.largoTotal(2)
-	vagon.largoUtil(1)	
-	assert.equals(true, vagon.esLiviano())
-
-}
-
-test " test eficiencia " 
-
-{
-	var locomotora = new Locomotora( peso = 1 , pesoMaximo = 6 , velocidadMaxima = 15 )
-	var formacion = new Formacion()
-	formacion.agregarLocomotoras(locomotora)
-	assert.equals(true, formacion.esEficiente())
+	test "vagon liviano"
+	{
+		
+		assert.equals(true, vagon.esLiviano())
+	
+	}
+	
+	test " test eficiencia " 
+	
+	{
+		
+		formacion.agregarLocomotoras(locomotora)
+		
+		assert.equals(true, formacion.esEficiente())
+	}
+	
+	test "arrastre util de una formacion"
+	{
+		formacion.agregarLocomotoras(locomotora)
+		formacion.agregarLocomotoras(locomotoraDos)
+		assert.equals(9, formacion.arrastreUtilTotal())	
+	}
 }

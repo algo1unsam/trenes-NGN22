@@ -17,7 +17,7 @@ class VagonPersonas {
 	}
 	
 	
-	//pre se calculo la cantidad de 
+	//pre se calculo la cantidad de pasajeros
 	//
 	//post  retorna la cantidad pasajeros maxima * 80
 	method pesoConPasajeros()
@@ -64,7 +64,7 @@ class VagonCarga
 		
 	//pre se asigno peso de vagon carga
 	//post al peso de carga maximo asignado le suma la constante
-	method vagonCarga()
+	method peso()
 	{
 		return pesoDeCarga + 160
 	}

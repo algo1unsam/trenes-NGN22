@@ -19,6 +19,14 @@ class Formacion {
 	}
 	
 	
+	
+	//post retorna el vagon mas pesado
+	method vagonMasPesado()
+	{
+		return vagones.max( { vagon => vagon.peso() } )
+	}
+	
+	
 	//pre se agrego al menos 1 lcomotora
 	//post retorna minima velocidad en la coleccion
 	method velocidadMaxima()
@@ -33,19 +41,87 @@ class Formacion {
 		return locomotoras.all{ locomotora => locomotora.calcularArrastreUtil() == locomotora.peso() * 5	}
 	}
 	
-	//Si una formación puede moverse. Una formación
-	// puede moverse si el arrastre útil total de sus locomotoras es mayor o igual al peso máximo total de los vagones.
-	//post verdadero si la formacion puede moverse
-	method podesMoverte()
+	
+	
+	//pre se agrego al menos una locomotora a la formacion
+	//post devuelve la suma del arrastre util de todas las locomotoras agregadas
+	method arrastreUtilTotal()
 	{
-		//locomotoras.
+		return locomotoras.sum {locomotora => locomotora.calcularArrastreUtil() }
 	}
 	
 	
 	
+	//pre se agrego al menos un vagon a la formacion
+	//post retorna la sumatoria del peso de los vagones
+	method pesoTotalVagones()
+	{
+		return vagones.sum {vagon => vagon.peso() }
+	}
+	
+	
+		
+	//post verdadero si la formacion puede moverse
+	method podesMoverte()
+	{
+		return self.arrastreUtilTotal() >= self.pesoTotalVagones()
+	}
 	
 	
 	
+	//pre se agregaron vagon/es y locomotora/s a la formacion
+	//post retorna 0 si se puede mover
+	// o sum(peso vagones) - sum (arrastreUtil total de las locomotoras)
+	method empujeFaltante()
+	{
+		return ( self.pesoTotalVagones() - self.arrastreUtilTotal() ).max(0) 
+	}
+	
+	
+		
+	//pre agregar locomotora/s a la formacion
+	//post retorna sum de las locomotoras
+	method pesoTotalLocomotoras()
+	{
+		return locomotoras.sum {locomotora => locomotora.peso() }
+	}
+	
+	
+	//post retorna el peso locomotoras + vagones 
+	method pesoTotalFormacion()
+	{
+		return self.pesoTotalVagones() + self.pesoTotalLocomotoras()
+	}
+	
+	
+	//post verdadero si el peso total vagones + locomotoras > 10000
+	method complejidadPorPeso()
+	{
+		return self.pesoTotalFormacion () > 10000
+	}
+	
+	
+	
+	//post retorna la cantidad de elementos en la formacion
+	method cantidadElementos()
+	{
+		return locomotoras.size () + vagones.size ()
+	}
+	
+	
+	
+	//pre verdadero si la cantidad de elemntos en la formacion > 20
+	method complejidadPorTamanio()
+	{
+		return self . cantidadElementos () > 20
+	}
+	
+	
+	method formacionCompleja()
+	{
+		return self . complejidadPorPeso() || self . complejidadPorTamanio ()
+	
+	}
 	
 	
 	

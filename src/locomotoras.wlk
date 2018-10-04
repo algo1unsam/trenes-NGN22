@@ -1,13 +1,13 @@
 class Locomotora {
 	
 	var property peso
-	var property pesoMaximo
+	var property pesoMaximoArrastre // de arraste
 	var property velocidadMaxima
 	
 	
 	method calcularArrastreUtil()
 	{
-		return pesoMaximo - peso
+		return pesoMaximoArrastre - peso
 	}
 	
 	
