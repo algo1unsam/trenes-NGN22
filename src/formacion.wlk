@@ -19,11 +19,23 @@ class Formacion {
 	}
 	
 	
+	//post: retorna la cantidad de pasajeros total
+	method cantidadPasajerosDeUnaFormacion()
+	{
+		vagones.sum {vagon => vagon.calcularPasajerosMaximo()}
+	}	
+	
+	
+	//post: retorna el numero de vagones livianos en la formacion
+	method cantidadDeVagonesLivianos()
+	{
+		vagones.count { vagon => vagon.esLiviano()}
+	}
 	
 	//post retorna el vagon mas pesado
 	method vagonMasPesado()
 	{
-		return vagones.max( { vagon => vagon.peso() } )
+		return vagones.count( { vagon => vagon.peso() } )
 	}
 	
 	
@@ -116,28 +128,33 @@ class Formacion {
 		return self . cantidadElementos () > 20
 	}
 	
-	
+	//post verdadero si la formaciones compleja
 	method formacionCompleja()
 	{
 		return self . complejidadPorPeso() || self . complejidadPorTamanio ()
 	
 	}
 	
+		
+}
+
+class FormacionLargaDistancia inherits Formacion 
+{
 	
+	//post verdadero si esta bien armada
+	method estaBienArmada() {
+		
+	}
+	 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	method baniosDisponibles() = vagones.sum {vagon => vagon.cantidadBanios() }
 	
 	
 	
 }
+
+class FormacionCortaDistancia inherits Formacion
+{
+	method estaBienArmada() = self.formacionCompleja() 
+}
+

@@ -7,6 +7,11 @@ class VagonPersonas {
 	
 	var cantidadDePasajeros = 0
 	
+	var cantidadBanios = 2
+		
+	
+	method cantidadBanios() = cantidadBanios	
+		
 		
 	//pre se calculo la cantidad de pasajeros maxima pasajeros
 	// carga se le asigno carga maxima
@@ -60,7 +65,10 @@ class VagonPersonas {
 class VagonCarga
 {
 	var property pesoDeCarga = null
+	const cantidadBanios = 0
 	
+	
+	method cantidadBanios() = cantidadBanios
 		
 	//pre se asigno peso de vagon carga
 	//post al peso de carga maximo asignado le suma la constante
@@ -68,6 +76,14 @@ class VagonCarga
 	{
 		return pesoDeCarga + 160
 	}
+	
+	
+	method esLiviano()
+	{
+		return self.peso() < 2500
+	}
+	
+	method calcularPasajerosMaximo() = 0
 	
 }
 
