@@ -16,26 +16,19 @@ class VagonPersonas {
 	//pre se calculo la cantidad de pasajeros maxima pasajeros
 	// carga se le asigno carga maxima
 	// post retorna el peso del vagon 
-	method peso()
-	{	
-		 return self.pesoConPasajeros() 		
-	}
+	method peso() = return self.pesoConPasajeros() 		
+	
 	
 	
 	//pre se calculo la cantidad de pasajeros
-	//
 	//post  retorna la cantidad pasajeros maxima * 80
-	method pesoConPasajeros()
-	{
-		return self.calcularPasajerosMaximo() * 80
-	}
+	method pesoConPasajeros() = return self.calcularPasajerosMaximo() * 80
+	
 	
 	
 	//post verf el largo util es > 2.5
-	method esLargoUtil()
-	{
-		return largoUtil > 2.5
-	}
+	method esLargoUtil() = return largoUtil > 2.5
+	
 	
 	
 	//post retorna la cantidad de pasajeros maxima segun largo util
@@ -52,10 +45,8 @@ class VagonPersonas {
 	
 	
 	//post verd si el peso del vagon menos 2500
-	method esLiviano()
-	{
-		return self.peso() < 2500
-	}
+	method esLiviano() = return self.peso() < 2500
+
 	
 			
 }
@@ -72,16 +63,11 @@ class VagonCarga
 		
 	//pre se asigno peso de vagon carga
 	//post al peso de carga maximo asignado le suma la constante
-	method peso()
-	{
-		return pesoDeCarga + 160
-	}
+	method peso() =	return pesoDeCarga + 160	
 	
 	
-	method esLiviano()
-	{
-		return self.peso() < 2500
-	}
+	method esLiviano() = return self.peso() < 2500
+	
 	
 	method calcularPasajerosMaximo() = 0
 	
