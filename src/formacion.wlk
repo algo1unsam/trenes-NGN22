@@ -21,7 +21,7 @@ class Formacion {
 	method cantidadDeVagonesLivianos() = return vagones.count { vagon => vagon.esLiviano()}
 	
 	//post retorna el vagon mas pesado
-	method vagonMasPesado() = return vagones.count( { vagon => vagon.peso() } )
+	method vagonMasPesado() = return vagones.max ( { vagon => vagon.peso() } )
 	
 	
 	//pre se agrego al menos 1 lcomotora
@@ -43,7 +43,7 @@ class Formacion {
 	 
 	//pre se agrego al menos un vagon a la formacion
 	//post retorna la sumatoria del peso de los vagones
-	method pesoTotalVagones() = { return vagones.sum { vagon => vagon.peso() } }
+	method pesoTotalVagones() =  return vagones.sum { vagon => vagon.peso() } 
 	 
 	
 	
